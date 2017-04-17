@@ -1,8 +1,10 @@
    <div>
       <table align="center" cellspacing="0">
         <tr *ngFor="let i of rows;">
-          <td  *ngFor="let m of gridArray | slice:(i*6):(i+1)*6">{{ m.title }} </td>
+          <td  *ngFor="let m of gridArray | slice:(i*6):(i+1)*6 " [style.background-color]="m.color" (click)="clicked(m.title)">{{ m.title }} </td>
         </tr>
       </table>
   </div>
-  <div>{{randomLetter}}</div>
+  <div>Clicked : {{myVar}}</div>
+<div><button (click)="shuffler()">shuffle</button></div>
+

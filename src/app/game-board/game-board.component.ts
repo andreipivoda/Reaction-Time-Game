@@ -7,27 +7,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameBoardComponent implements OnInit {
 charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+myVar = 'not Clicked';
 rl;
 rows;
 gridArray = [
-{title:this.genRandomLetter(), color: 'red'}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()},
-{title: this.genRandomLetter(), color: 'red'}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()},
-{title: this.genRandomLetter(), color: 'red'}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()},
-{title: this.genRandomLetter(), color: 'red'}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()},
-{title: this.genRandomLetter(), color: 'red'}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()},
-{title: this.genRandomLetter(), color: 'red'}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()}, {title: this.genRandomLetter()},
+{ title: 'A', color: 'red'}, { }, { }, { }, { }, { },
+{ title: 'Z', color: 'blue'}, { }, { }, { }, { }, { },
+{ }, { }, { }, { }, { }, { },
+{ }, { }, { }, { }, { }, { },
+{ }, { }, { }, { }, { }, { },
+{ }, { }, { }, { }, { }, { }];
 
-
-]
-
-  constructor() { }
+  constructor() {
+     this.shuffle(this.gridArray);
+  }
 
   ngOnInit() {
    this.rows = Array.from(Array(Math.ceil(this.gridArray.length / 6)).keys());
   }
-
-  genRandomLetter(){
+  genRandomLetter() {
     return this.charset.charAt(Math.floor(Math.random() * this.charset.length));
   }
+
+clicked(varoable) {
+    this.myVar = varoable;
+}
+ shuffle(a) {
+    for (let i = a.length; i; i--) {
+        const j = Math.floor(Math.random() * i);
+        [a[i - 1], a[j]] = [a[j], a[i - 1]];
+    }
+}
+shuffler() {
+    this.shuffle(this.gridArray);
+}
 
 }
