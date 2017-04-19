@@ -20,8 +20,8 @@ export class GameHudComponent implements OnInit {
   randomChoice;
   @Output() outcome = new EventEmitter();
   @Output() startPlay = new EventEmitter();
-  subscribed;
-  stopped;
+  idle;
+
 
   timer;
   timeObs: Observable<any>;
@@ -33,29 +33,29 @@ export class GameHudComponent implements OnInit {
     this.seconds = 0;
     this.miliseconds = 0;
     this.maxTime = 3;
-    this.subscribed = false;
-    this.stopped = false;
+    this.idle = false;
+
 
     console.log(this.randomChoice);
 
   }
 
   start() {
-    if (!this.subscribed) {
-      this.startTheObs()
-    } else { return; }
+    if (!this.idle) {
+      this.startTheObs();
+      this.startPlay.emit(true);
+      this.idle = true;
+    }
   }
 
   startTheObs() {
-    this.subscribed = true;
-    this.stopped = false;
-    this.startPlay.emit(true);
+    console.log('starting');
     this.timeObs = Observable.interval(200).delay(500).map(x => x + 1);
     this.timeElapsed = 0;
     this.seconds = 0;
     this.miliseconds = 0;
     this.timer = this.timeObs.subscribe(x => {
-      // console.log(x);
+
       this.timeElapsed = x;
       if (this.timeElapsed % 5 === 0) {
         this.seconds++;
@@ -66,17 +66,17 @@ export class GameHudComponent implements OnInit {
       if (this.seconds === 3) {
         this.stop('auto');
         console.log('time\'s up');
-        console.log(this.timer);
+
       }
     });
 
   }
   stop(who: string) {
 
-    if (!!this.timer) {
+    if (!!this.timer && this.idle) {
       this.timer.unsubscribe();
-      this.stopped = true;
-      this.subscribed = false;
+      this.idle = false;
+      console.log('stopping');
     }
 
   }

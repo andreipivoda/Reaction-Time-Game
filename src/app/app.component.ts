@@ -6,10 +6,11 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   template: `
   <br><br><br>
-   <app-game-hud [score]="score" [lives]="lives"></app-game-hud>
+   <app-game-hud [score]="score" [lives]="lives" (startPlay)="gameStart()"></app-game-hud>
    <app-game-board [columns]="columns" (answer)="onClick($event)" (randomChoice)="getRandomChoice($event)" ></app-game-board>
 `,
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [GameDataService]
 })
 export class AppComponent {
   private columns = 6;
@@ -18,6 +19,10 @@ export class AppComponent {
   private randomChoice;
 
 
+  private gameStart() {
+
+  }
+  constructor(private gameService: GameDataService) { }
 
   private onClick(answer) {
 

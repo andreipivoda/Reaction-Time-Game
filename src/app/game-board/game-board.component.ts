@@ -19,7 +19,8 @@ export class GameBoardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.gridArray = this.gameData.getEmptyGrid();
+        this.gridArray = this.gameData.getPopulatedGrid();
+        this.gameData.shuffle(this.gridArray);
         this.rows = Array.from(Array(Math.ceil(this.gridArray.length / this.columns)).keys());
     }
 

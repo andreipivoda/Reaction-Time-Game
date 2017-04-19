@@ -30,6 +30,7 @@ export class GameDataService {
     this.colorOne = Object(this.colors)[0];
     this.colorTwo = Object(this.colors)[1];
     this.genChoice();
+
     return [
       { title: this.letterTwo, color: this.colorOne }, {}, {}, {}, {}, {},
       { title: this.letterOne, color: this.colorTwo }, {}, {}, {}, {}, {},
