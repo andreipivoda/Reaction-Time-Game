@@ -1,5 +1,5 @@
 import { GameDataService } from './../game-data.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
     selector: 'app-game-board',
@@ -9,28 +9,21 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class GameBoardComponent implements OnInit {
 
-    myVar;
-    private rows;
-    private columns = 6;
-    private gridArray;
+    @Input() columns;
     @Output() answer = new EventEmitter();
-
-
-
+    private gridArray;
+    private rows;
 
     constructor(private gameData: GameDataService) {
-
     }
 
     ngOnInit() {
-        this.gridArray = this.gameData.getData();
+        this.gridArray = this.gameData.getPopulatedGrid();
         this.gameData.shuffle(this.gridArray);
         this.rows = Array.from(Array(Math.ceil(this.gridArray.length / this.columns)).keys());
     }
 
-    clicked(answer) {
+    emitAnswer(answer) {
         this.answer.emit(answer);
-        this.myVar = answer;
-        // this.myVar = Math.floor(Math.random() * 3);
     }
 }

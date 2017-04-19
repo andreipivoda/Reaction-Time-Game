@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { } from 'rxjs/Rx';
 
 @Component({
@@ -9,33 +9,48 @@ import { } from 'rxjs/Rx';
 })
 export class GameHudComponent implements OnInit {
 
+  seconds;
+  miliseconds;
+  lives = 5;
+  score = 0;
+  boxType;
+  maxTime;
+  @Output() outcome = new EventEmitter();
+
   timer;
   timeObs: Observable<any>;
   timeElapsed;
-  seconds = 0;
-  miliseconds = 0;
+
   constructor() { }
 
-  ngOnInit() {
-    this.timeObs = Observable.interval(200).map(x => x + 1);
+  ngOnInit() { // start values 0.0s
+    this.seconds = 0;
+    this.miliseconds = 0;
+    this.maxTime = 3;
+
   }
 
   start() {
+
+    this.timeObs = Observable.interval(200).delay(500).map(x => x + 1);
     this.timeElapsed = 0;
     this.seconds = 0;
     this.miliseconds = 0;
     this.timer = this.timeObs.subscribe(x => {
-      console.log(x); this.timeElapsed = x;
+      // console.log(x);
+      this.timeElapsed = x;
       if (this.timeElapsed % 5 === 0) {
         this.seconds++;
         this.miliseconds = 0;
       } else {
-        this.miliseconds += 200;
+        this.miliseconds += 2;
       }
     });
 
   }
   stop() {
-    this.timer.unsubscribe();
+    if (!!this.timer) {
+      this.timer.unsubscribe();
+    }
   }
 }
