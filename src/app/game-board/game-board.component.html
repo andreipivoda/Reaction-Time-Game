@@ -1,7 +1,7 @@
 <div>
     <table align="center" cellspacing="0">
         <tr *ngFor="let i of rows;">
-            <td *ngFor="let m of gridArray | slice:(i*columns):(i+1)*columns " [style.background-color]="m.color" (click)="emitAnswer(m.title)">{{ m.title }} </td>
+            <td *ngFor="let m of gridArray | slice:(i*columns):(i+1)*columns " [style.background-color]="m.color" (click)="emitAnswer(m)">{{ m.title }} </td>
         </tr>
     </table>
 </div>

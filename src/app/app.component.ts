@@ -1,23 +1,53 @@
+import { GameDataService } from './game-data.service';
 import { Component } from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
   template: `
   <br><br><br>
-<app-game-hud></app-game-hud>
-<app-game-board [columns]="columns" (answer)="onClick($event)"></app-game-board>
+   <app-game-hud [score]="score" [lives]="lives"></app-game-hud>
+   <app-game-board [columns]="columns" (answer)="onClick($event)" (randomChoice)="getRandomChoice($event)" ></app-game-board>
 `,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   private columns = 6;
+  private score = 0;
+  private lives = 5;
+  private randomChoice;
 
-  onClick(answer) {
 
-    if (!!answer) {
-      console.log(answer);
+
+  private onClick(answer) {
+
+    if (!!answer.title) {
+      if (answer.title === this.randomChoice || answer.color === this.randomChoice) {
+        console.log('correct');
+        this.score++;
+      } else {
+
+        if (this.lives > 0) {
+          this.lives--;
+          console.log('fail');
+        } else {
+          console.log('game over');
+        }
+
+      }
+
     }
 
+
+
   }
+
+  getRandomChoice(choice) {
+    this.randomChoice = choice;
+    console.log(choice);
+    return choice;
+
+  }
+
 
 }

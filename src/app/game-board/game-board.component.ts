@@ -11,6 +11,7 @@ export class GameBoardComponent implements OnInit {
 
     @Input() columns;
     @Output() answer = new EventEmitter();
+    @Output() randomChoice = new EventEmitter();
     private gridArray;
     private rows;
 
@@ -18,12 +19,16 @@ export class GameBoardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.gridArray = this.gameData.getPopulatedGrid();
-        this.gameData.shuffle(this.gridArray);
+        this.gridArray = this.gameData.getEmptyGrid();
         this.rows = Array.from(Array(Math.ceil(this.gridArray.length / this.columns)).keys());
     }
 
+    // start this.gameData.shuffle(this.gridArray);
+
     emitAnswer(answer) {
+        // console.log(answer);
+        this.randomChoice.emit(this.gameData.getRandomChoice());
         this.answer.emit(answer);
+
     }
 }

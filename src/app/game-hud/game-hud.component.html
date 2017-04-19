@@ -1,10 +1,10 @@
 <div>
     <button (click)="start()">Start</button>
-    <button (click)="stop()">Stop</button>
+    <button (click)="stop('user')">Stop</button>
 </div>
 <table align="center">
     <tr>
-        <td style="width: 200px;display: inline-block;">Click the {{boxType}} Box</td>
+        <td style="width: 200px;display: inline-block;">Click the {{randomChoice}} Box</td>
         <td style="width: 200px;display: inline-block;text-align: right;">Lives: {{lives}}</td>
     </tr>
 
@@ -14,5 +14,3 @@
 
     </tr>
 </table>
-<dialog>Game over !?
-</dialog>
