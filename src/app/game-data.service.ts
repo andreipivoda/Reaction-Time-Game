@@ -14,16 +14,18 @@ export class GameDataService {
   private colorTwo;
   private choice;
 
-
-
   constructor() {
     this.shuffle(this.charset);
     this.shuffle(this.colors);
   }
 
+  public shuffle(a) {
+    for (let i = a.length; i; i--) {
+      const j = Math.floor(Math.random() * i);
+      [a[i - 1], a[j]] = [a[j], a[i - 1]];
+    }
+  }
 
-
-  // getData() { return Observable.from([{ name: '' }]); } fromArray ...
   public getPopulatedGrid() {
     this.letterOne = Object(this.charset)[0];
     this.letterTwo = Object(this.charset)[1];
@@ -32,8 +34,8 @@ export class GameDataService {
     this.genChoice();
 
     return [
-      { title: this.letterTwo, color: this.colorOne }, {}, {}, {}, {}, {},
-      { title: this.letterOne, color: this.colorTwo }, {}, {}, {}, {}, {},
+      { title: this.letterTwo, color: this.colorTwo }, {}, {}, {}, {}, {},
+      { title: this.letterOne, color: this.colorOne }, {}, {}, {}, {}, {},
       {}, {}, {}, {}, {}, {},
       {}, {}, {}, {}, {}, {},
       {}, {}, {}, {}, {}, {},
@@ -52,28 +54,13 @@ export class GameDataService {
     ];
   }
 
-
-
-  public shuffle(a) {
-    for (let i = a.length; i; i--) {
-      const j = Math.floor(Math.random() * i);
-      [a[i - 1], a[j]] = [a[j], a[i - 1]];
-    }
-  }
-
   private genChoice() {
-    this.choice = [this.letterOne, this.colorTwo];
+    this.choice = [this.letterOne, this.colorOne];
     this.shuffle(this.choice);
     return this.choice;
   }
   public getRandomChoice() {
     return this.choice;
-  }
-
-
-  public getCharset() {
-
-    return this.charset;
   }
 
 }

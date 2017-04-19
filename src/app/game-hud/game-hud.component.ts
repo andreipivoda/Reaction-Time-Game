@@ -15,12 +15,12 @@ export class GameHudComponent implements OnInit {
   miliseconds;
   boxType;
   maxTime;
+  randomChoice;
+  idle;
   @Input() lives;
   @Input() score;
-  randomChoice;
-  @Output() outcome = new EventEmitter();
   @Output() startPlay = new EventEmitter();
-  idle;
+
 
 
   timer;

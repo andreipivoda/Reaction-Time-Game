@@ -10,26 +10,20 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 export class GameBoardComponent implements OnInit {
 
     @Input() columns;
+    @Input() gridArray;
+    @Input() endMessage; 
     @Output() answer = new EventEmitter();
-    @Output() randomChoice = new EventEmitter();
-    private gridArray;
+
     private rows;
 
     constructor(private gameData: GameDataService) {
     }
 
     ngOnInit() {
-        this.gridArray = this.gameData.getPopulatedGrid();
-        this.gameData.shuffle(this.gridArray);
         this.rows = Array.from(Array(Math.ceil(this.gridArray.length / this.columns)).keys());
     }
 
-    // start this.gameData.shuffle(this.gridArray);
-
-    emitAnswer(answer) {
-        // console.log(answer);
-        this.randomChoice.emit(this.gameData.getRandomChoice());
-        this.answer.emit(answer);
-
+    emitAnswer(theBox) {
+        this.answer.emit(theBox);
     }
 }
