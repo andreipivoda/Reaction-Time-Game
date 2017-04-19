@@ -20,13 +20,12 @@ export class GameDataService {
 
 
 
-  // getData() { return Observable.from([{ name: 'London' }]); }
+  // getData() { return Observable.from([{ name: 'London' }]); } fromArray ...
   public getData() {
     this.letterOne = Object(this.charset)[0];
     this.letterTwo = Object(this.charset)[1];
     this.colorOne = Object(this.color)[0];
     this.colorTwo = Object(this.color)[1];
-
 
     return [
       { title: this.letterTwo, color: this.colorOne }, {}, {}, {}, {}, {},
@@ -49,7 +48,6 @@ export class GameDataService {
 
 
   public getCharset() {
-
     return this.charset;
   }
 

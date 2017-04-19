@@ -30,7 +30,7 @@ export class GameBoardComponent implements OnInit {
 
     clicked(answer) {
         this.answer.emit(answer);
-        // this.myVar = variable;
+        this.myVar = answer;
         // this.myVar = Math.floor(Math.random() * 3);
     }
 }

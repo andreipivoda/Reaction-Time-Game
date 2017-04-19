@@ -1,12 +1,16 @@
+<div>
+    <button (click)="start()">Start</button>
+    <button (click)="stop()">Stop</button>
+</div>
 <table align="center">
-  <tr>
-  <td style="width: 200px;display: inline-block;">Click the Red Box</td>  
-  <td style="width: 200px;display: inline-block;text-align: right;">Lives:5</td>
-  </tr>
+    <tr>
+        <td style="width: 200px;display: inline-block;">Click the Red Box</td>
+        <td style="width: 200px;display: inline-block;text-align: right;">Lives:5</td>
+    </tr>
 
-  <tr>
-  <td style="width: 200px;display: inline-block;">Time Left : 0.6s</td>   
-  <td style="width: 200px;display: inline-block;text-align: right;">Score:0</td>
+    <tr>
+        <td style="width: 200px;display: inline-block;">Time Left : {{seconds}}s,{{miliseconds}}</td>
+        <td style="width: 200px;display: inline-block;text-align: right;">Score:0</td>
 
-  </tr>
+    </tr>
 </table>
