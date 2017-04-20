@@ -7,17 +7,12 @@ export class GameDataService {
 
   private charset =
   ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-  private colors = ['red', 'green', 'blue'];
+  private colors = ['Red', 'Green', 'Blue'];
   private letterOne;
   private colorOne;
   private choice;
-  public gameStatus;
-  seconds;
-  miliseconds;
-  timer;
 
-  constructor() {
-  }
+  constructor() { }
 
   public shuffle(a) {
     for (let i = a.length; i; i--) {
@@ -54,6 +49,17 @@ export class GameDataService {
       {}, {}, {}, {}, {}, {}
     ];
   }
+  public getGameOverGrid() {
+    return [
+      {}, {}, {}, {}, {}, {},
+      // tslint:disable-next-line:max-line-length
+      {}, { title: 'G', color: 'red' }, { title: 'A', color: 'orange' }, { title: 'M', color: 'gold' }, { title: 'E', color: 'LimeGreen' }, {},
+      {}, {}, {}, {}, {}, {},
+      {}, { title: 'O', color: 'green' }, {}, { title: 'E', color: 'indigo' }, { title: 'R', color: 'violet' }, {},
+      {}, {}, { title: 'V', color: 'blue' }, {}, {}, {},
+      {}, {}, {}, {}, {}, {}
+    ];
+  }
 
   private genChoice() {
     this.choice = [this.letterOne, this.colorOne];
@@ -63,7 +69,4 @@ export class GameDataService {
   public getRandomChoice() {
     return this.choice;
   }
-
-
-
 }
