@@ -33,6 +33,7 @@ export class GameHudComponent implements OnInit {
     this.miliseconds = 0;
     this.maxTime = 3;
     this.idle = true;
+    this.randomChoice = [];
   }
 
   public startPlaying() {
@@ -70,30 +71,37 @@ export class GameHudComponent implements OnInit {
         this.miliseconds += 2;
 
       }
-      // if (this.seconds === 3) {
-      //   this.newRound.emit();
-      //   console.log('emit new round');
-
-      // }
-      if (timeElapsed % 15 === 0) {
+      if (this.lives === 0) {
+        this.stopPlaying('dead');
+      }
+      if (this.seconds === 3) {
+        timeElapsed = 0;
         this.seconds = 0;
         this.miliseconds = 0;
         this.userClicked.title = '';
         this.userClicked.color = '';
         this.newRound.emit();
+        this.lives--;
         console.log('new Round !');
       }
+
 
       if (this.userClicked.title !== '') {
 
         if (this.userClicked.title === this.randomChoice[0] || this.userClicked.color === this.randomChoice[0]) {
           this.score++;
+          timeElapsed = 0;
+          this.seconds = 0;
+          this.miliseconds = 0;
           this.userClicked.title = '';
           this.userClicked.color = '';
           this.newRound.emit();
           console.log('new Round !');
 
         } else {
+          timeElapsed = 0;
+          this.seconds = 0;
+          this.miliseconds = 0;
           this.lives--;
           this.userClicked.title = '';
           this.userClicked.color = '';
@@ -101,7 +109,7 @@ export class GameHudComponent implements OnInit {
           console.log('new Round !');
         }
 
-        if (this.lives === 0) { this.stopPlaying(''); }
+
 
       }
 

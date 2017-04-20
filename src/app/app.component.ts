@@ -37,14 +37,10 @@ export class AppComponent implements OnInit {
 
     if (status) {
       console.log('starting the main loop status = ', status);
-
-      this.gridArray = this.gameService.getPopulatedGrid();
-      this.gameService.shuffle(this.gridArray);
-      this.randomChoice = this.gameService.getRandomChoice();
+      this.refreshBoard();
     } else {
       this.endGame();
     }
-
     console.log('ending the main loop');
   }
 
