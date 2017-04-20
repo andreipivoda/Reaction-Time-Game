@@ -1,22 +1,21 @@
-import { GameDataService } from './../game-data.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
     selector: 'app-game-board',
     templateUrl: './game-board.component.html',
-    styleUrls: ['./game-board.component.css'],
-    providers: [GameDataService]
+    styleUrls: ['./game-board.component.css']
+
 })
 export class GameBoardComponent implements OnInit {
 
     @Input() columns;
     @Input() gridArray;
-    @Input() endMessage; 
+    @Input() endMessage;
     @Output() answer = new EventEmitter();
 
     private rows;
 
-    constructor(private gameData: GameDataService) {
+    constructor() {
     }
 
     ngOnInit() {

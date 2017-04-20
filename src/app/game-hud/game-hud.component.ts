@@ -1,6 +1,7 @@
 import { GameDataService } from './../game-data.service';
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import * as Rx from 'rxjs/Rx';
 
 
 @Component({
@@ -11,21 +12,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class GameHudComponent implements OnInit {
 
+  maxTime;
+  idle;
+  timer;
   seconds;
   miliseconds;
-  boxType;
-  maxTime;
-  randomChoice;
-  idle;
+  @Input() randomChoice;
   @Input() lives;
   @Input() score;
-  @Output() startPlay = new EventEmitter();
-
-
-
-  timer;
-  timeObs: Observable<any>;
-  timeElapsed;
+  @Output() startEmitter = new EventEmitter();
 
   constructor(private gameData: GameDataService) { }
 
@@ -33,51 +28,48 @@ export class GameHudComponent implements OnInit {
     this.seconds = 0;
     this.miliseconds = 0;
     this.maxTime = 3;
-    this.idle = false;
+    this.idle = true;
+  }
 
-
-    console.log(this.randomChoice);
+  public startPlaying() {
+    this.startTheObs();
+    console.log('emitting start');
+    this.startEmitter.emit(true);
 
   }
 
-  start() {
-    if (!this.idle) {
-      this.startTheObs();
-      this.startPlay.emit(true);
-      this.idle = true;
-    }
+
+  public stopPlaying(who: string) {
+    console.log('emitting stopstopping');
+    this.startEmitter.emit(false);
+    this.stopTimer();
   }
 
-  startTheObs() {
-    console.log('starting');
-    this.timeObs = Observable.interval(200).delay(500).map(x => x + 1);
-    this.timeElapsed = 0;
+  public startTheObs() {
+    console.log('start counting');
+    const timeObs = Observable.interval(200).delay(500).map(x => x + 1);
+
+    let timeElapsed = 0;
     this.seconds = 0;
     this.miliseconds = 0;
-    this.timer = this.timeObs.subscribe(x => {
 
-      this.timeElapsed = x;
-      if (this.timeElapsed % 5 === 0) {
+    this.timer = timeObs.subscribe(x => {
+      timeElapsed = x;
+      if (timeElapsed % 5 === 0) {
         this.seconds++;
         this.miliseconds = 0;
       } else {
         this.miliseconds += 2;
       }
-      if (this.seconds === 3) {
-        this.stop('auto');
+      if (this.seconds >= 3) {
+        this.stopTimer();
         console.log('time\'s up');
-
       }
     });
 
   }
-  stop(who: string) {
-
-    if (!!this.timer && this.idle) {
-      this.timer.unsubscribe();
-      this.idle = false;
-      console.log('stopping');
-    }
-
+  public stopTimer() {
+    this.timer.unsubscribe();
   }
+
 }

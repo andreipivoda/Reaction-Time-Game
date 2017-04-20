@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { GameDataService } from './game-data.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -6,42 +7,47 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-root',
   template: `
   <br><br><br>
-   <app-game-hud [score]="score" [lives]="lives"
-                 (startPlay)="gameStart()"></app-game-hud>
-
+   <app-game-hud [score]="score" [lives]="lives" [randomChoice]="randomChoice" 
+                 (startEmitter)="gameStart($event)"></app-game-hud>
    <app-game-board [columns]="columns" [gridArray]="gridArray" [endMessage]="endMessage"
                    (answer)="onClick($event)"></app-game-board>
 `,
   styleUrls: ['./app.component.css'],
   providers: [GameDataService]
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   private columns = 6;
   private score = 0;
   private lives = 5;
   private randomChoice;
-  private gridArray ;
-  private endMessage ;
- constructor(private gameService: GameDataService) {}
+  private gridArray;
+  private endMessage;
+  public seconds;
+  public miliseconds;
+  private timer;
+  constructor(private gameService: GameDataService) { }
 
- private endGame(){
+  private endGame() {
     this.gridArray = [];
     this.endMessage = 'Game Over !';
- }
+  }
   private gameStart() {
-    if (this.lives > 1)
-    {
-      console.log('starting the game');
+
+    const status = true;
+    console.log('starting the main loop status = ', status);
+
     this.gridArray = this.gameService.getPopulatedGrid();
     this.gameService.shuffle(this.gridArray);
-  } else {
-        this.endGame();
-    }
+    this.randomChoice = this.gameService.getRandomChoice();
+
+
+
+    // }
+    // this.endGame();
+    console.log('ending the main loop');
   }
 
-  ngOnInit() {
-    this.gridArray = this.gameService.getEmptyGrid();
-  }
+
 
   private onClick(answer) {
 
@@ -62,9 +68,8 @@ export class AppComponent implements OnInit{
     }
   }
 
-  getRandomChoice(choice) {
-    this.randomChoice = choice;
-    console.log(choice);
-    return choice;
+  ngOnInit() {
+    this.gridArray = this.gameService.getEmptyGrid();
   }
+
 }

@@ -5,18 +5,18 @@ import 'rxjs/Rx';
 @Injectable()
 export class GameDataService {
 
-  // tslint:disable-next-line:max-line-length
-  private charset = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+  private charset =
+  ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   private colors = ['red', 'green', 'blue'];
   private letterOne;
-  private letterTwo;
   private colorOne;
-  private colorTwo;
   private choice;
+  public gameStatus;
+  seconds;
+  miliseconds;
+  timer;
 
   constructor() {
-    this.shuffle(this.charset);
-    this.shuffle(this.colors);
   }
 
   public shuffle(a) {
@@ -27,14 +27,15 @@ export class GameDataService {
   }
 
   public getPopulatedGrid() {
+    this.shuffle(this.charset);
+    this.shuffle(this.colors);
     this.letterOne = Object(this.charset)[0];
-    this.letterTwo = Object(this.charset)[1];
+    const letterTwo = Object(this.charset)[1];
     this.colorOne = Object(this.colors)[0];
-    this.colorTwo = Object(this.colors)[1];
+    const colorTwo = Object(this.colors)[1];
     this.genChoice();
-
     return [
-      { title: this.letterTwo, color: this.colorTwo }, {}, {}, {}, {}, {},
+      { title: letterTwo, color: colorTwo }, {}, {}, {}, {}, {},
       { title: this.letterOne, color: this.colorOne }, {}, {}, {}, {}, {},
       {}, {}, {}, {}, {}, {},
       {}, {}, {}, {}, {}, {},
@@ -62,5 +63,7 @@ export class GameDataService {
   public getRandomChoice() {
     return this.choice;
   }
+
+
 
 }
