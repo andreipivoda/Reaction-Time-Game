@@ -12,11 +12,9 @@ export class GameBoardComponent implements OnInit {
     @Input() gridArray;
     @Input() endMessage;
     @Output() answer = new EventEmitter();
-
     private rows;
 
-    constructor() {
-    }
+    constructor() { }
 
     ngOnInit() {
         this.rows = Array.from(Array(Math.ceil(this.gridArray.length / this.columns)).keys());

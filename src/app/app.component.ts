@@ -1,7 +1,5 @@
-import { Observable } from 'rxjs/Observable';
 import { GameDataService } from './game-data.service';
 import { Component, OnInit } from '@angular/core';
-
 
 @Component({
   selector: 'app-root',
@@ -24,16 +22,17 @@ export class AppComponent implements OnInit {
 
   private endGame() {
     this.gridArray = this.gameService.getGameOverGrid();
-    // this.gridArray=[];this.endMessage = 'Game Over !';
+    // this.gridArray = []; this.endMessage = 'Game Over !';
   }
-  private gameStart(status) {
+  private gameStart(status: boolean) {
     if (status) {
-      // console.log('starting the main loop status = ', status);
+
       this.refreshBoard();
     } else {
+      console.log('end pressed!');
       this.endGame();
     }
-    // console.log('ending the main loop');
+
   }
 
   private onClick(answer) {
@@ -43,7 +42,7 @@ export class AppComponent implements OnInit {
     // console.log('request new grid !');
     this.gridArray = this.gameService.getPopulatedGrid();
     this.gameService.shuffle(this.gridArray);
-    this.randomChoice = this.gameService.getRandomChoice()
+    this.randomChoice = this.gameService.getRandomChoice();
   }
   ngOnInit() {
     this.gridArray = this.gameService.getEmptyGrid();

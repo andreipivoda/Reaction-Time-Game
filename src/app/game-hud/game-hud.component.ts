@@ -1,14 +1,13 @@
-import { GameDataService } from './../game-data.service';
-import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
-
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-game-hud',
   templateUrl: './game-hud.component.html',
   styleUrls: ['./game-hud.component.css'],
-  providers: [GameDataService]
+  providers: []
 })
 export class GameHudComponent implements OnInit {
 
@@ -24,7 +23,7 @@ export class GameHudComponent implements OnInit {
   @Output() startEmitter = new EventEmitter();
   @Output() newRound = new EventEmitter();
 
-  constructor(private gameData: GameDataService) { }
+  constructor() { }
 
   ngOnInit() { // start values 0.0s
     this.seconds = 0;
@@ -49,14 +48,14 @@ export class GameHudComponent implements OnInit {
   public stopPlaying(who: string) {
     if (!this.idle) {
       this.idle = true;
-      console.log('emitting stopstopping');
+      console.log('emitting stop');
       this.startEmitter.emit(false);
       this.stopTimer();
     }
   }
 
   public startTheObs() {
-    console.log('start counting');
+    // console.log('start counting');
     const timeObs = Observable.interval(200).map(x => x + 1);
 
     let timeElapsed = 0;
@@ -93,7 +92,7 @@ export class GameHudComponent implements OnInit {
           this.score++;
           timeElapsed = 0;
           this.variableReset();
-          this.ttc *= 0.9; // ERROR !!@!@!@!@!@!
+          this.ttc *= 0.9; // Factor
           this.newRound.emit();
           console.log('OK => new Round ! ttc=', this.ttc);
         } else {
