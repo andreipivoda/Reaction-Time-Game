@@ -1,7 +1,7 @@
 import { GameDataService } from './../game-data.service';
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import * as Rx from 'rxjs/Rx';
+
 
 
 @Component({
@@ -12,15 +12,19 @@ import * as Rx from 'rxjs/Rx';
 })
 export class GameHudComponent implements OnInit {
 
-  maxTime;
-  idle;
-  timer;
-  seconds;
-  miliseconds;
+  private maxTime;
+  private idle;
+  private timer;
+  private miliseconds;
+  private seconds;
   @Input() randomChoice;
   @Input() lives;
   @Input() score;
+  @Input() userClicked;
   @Output() startEmitter = new EventEmitter();
+  @Output() newRound = new EventEmitter();
+
+
 
   constructor(private gameData: GameDataService) { }
 
@@ -47,24 +51,66 @@ export class GameHudComponent implements OnInit {
 
   public startTheObs() {
     console.log('start counting');
-    const timeObs = Observable.interval(200).delay(500).map(x => x + 1);
+    const timeObs = Observable.interval(200).map(x => x + 1);
+    // const timeObs = Observable.timer(0, 3000);
 
     let timeElapsed = 0;
     this.seconds = 0;
     this.miliseconds = 0;
 
+
     this.timer = timeObs.subscribe(x => {
+      // console.log(x);
       timeElapsed = x;
+
       if (timeElapsed % 5 === 0) {
         this.seconds++;
         this.miliseconds = 0;
       } else {
         this.miliseconds += 2;
+
       }
-      if (this.seconds >= 3) {
-        this.stopTimer();
-        console.log('time\'s up');
+      // if (this.seconds === 3) {
+      //   this.newRound.emit();
+      //   console.log('emit new round');
+
+      // }
+      if (timeElapsed % 15 === 0) {
+        this.seconds = 0;
+        this.miliseconds = 0;
+        this.userClicked.title = '';
+        this.userClicked.color = '';
+        this.newRound.emit();
+        console.log('new Round !');
       }
+
+      if (this.userClicked.title !== '') {
+
+        if (this.userClicked.title === this.randomChoice[0] || this.userClicked.color === this.randomChoice[0]) {
+          this.score++;
+          this.userClicked.title = '';
+          this.userClicked.color = '';
+          this.newRound.emit();
+          console.log('new Round !');
+
+        } else {
+          this.lives--;
+          this.userClicked.title = '';
+          this.userClicked.color = '';
+          this.newRound.emit();
+          console.log('new Round !');
+        }
+
+        if (this.lives === 0) { this.stopPlaying(''); }
+
+      }
+
+      // } else if (this.userClicked === this.randomChoice) {
+      //   this.score++;
+      // } else {
+      //   this.lives--;
+      //   console.log('- lives;');
+      // }
     });
 
   }
