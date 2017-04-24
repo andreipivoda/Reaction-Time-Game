@@ -1,8 +1,0 @@
-<div>
-    <table align="center" cellspacing="0">
-        <tr *ngFor="let i of rows;">
-            <td *ngFor="let aBox of gridArray | slice:(i*columns):(i+1)*columns " [style.background-color]="aBox.color" (click)="emitAnswer(aBox)">{{ aBox.title }} </td>
-        </tr>
-    </table>
-</div>
-<div>  {{endMessage}}</div>
