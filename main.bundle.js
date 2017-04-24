@@ -227,7 +227,7 @@ module.exports = module.exports.toString();
 /***/ 159:
 /***/ (function(module, exports) {
 
-module.exports = "<br><br>\r\n<p>\r\n    How to play : <br>After clicking Start, the game will select a random Letter or a Color <br>Clicking the correct choice will increase your score<br>The time will go 10% faster if you click the indicated box<br>Good Luck!\r\n</p>\r\n<br>\r\n<app-game-hud [score]=\"score\" [lives]=\"lives\" [randomChoice]=\"randomChoice\" [userClicked]=\"userClicked\" (startEmitter)=\"gameStart($event)\" (newRound)=\"refreshBoard($event) \">\r\n</app-game-hud>\r\n<app-game-board [columns]=\"columns\" [gridArray]=\"gridArray\" [endMessage]=\"endMessage\" (answer)=\"onClick($event)\">\r\n</app-game-board>"
+module.exports = "<div align=\"center\">\r\n    <br><br>\r\n    <p>\r\n        How to play : <br>After clicking Start, the game will select a random Letter or a Color <br>Clicking the correct choice will increase your score<br>The time will go 10% faster if you click the indicated box<br>Good Luck!\r\n    </p>\r\n    <br>\r\n    <app-game-hud [score]=\"score\" [lives]=\"lives\" [randomChoice]=\"randomChoice\" [userClicked]=\"userClicked\" (startEmitter)=\"gameStart($event)\" (newRound)=\"refreshBoard($event) \">\r\n    </app-game-hud>\r\n    <app-game-board [columns]=\"columns\" [gridArray]=\"gridArray\" [endMessage]=\"endMessage\" (answer)=\"onClick($event)\">\r\n    </app-game-board>\r\n</div>"
 
 /***/ }),
 
