@@ -41,16 +41,17 @@ var GameHudComponent = (function () {
         if (this.idle) {
             this.lives = 5;
             this.score = 0;
+            this.ttc = 3;
             this.idle = false;
             this.startTheObs();
-            console.log('emitting start');
+            // console.log('emitting start');
             this.startEmitter.emit(true);
         }
     };
     GameHudComponent.prototype.stopPlaying = function (who) {
         if (!this.idle) {
             this.idle = true;
-            console.log('emitting stop');
+            // console.log('emitting stop');
             this.startEmitter.emit(false);
             this.stopTimer();
         }
@@ -64,7 +65,7 @@ var GameHudComponent = (function () {
         this.miliseconds = 0;
         this.timer = timeObs.subscribe(function (x) {
             timeElapsed = x;
-            if (_this.lives === 0) {
+            if (_this.lives <= 0) {
                 _this.stopPlaying('dead');
             }
             if (timeElapsed % 5 === 0) {
@@ -91,7 +92,7 @@ var GameHudComponent = (function () {
                     _this.variableReset();
                     _this.ttc *= 0.9; // Factor
                     _this.newRound.emit();
-                    console.log('OK => new Round ! ttc=', _this.ttc);
+                    console.log('OK => new Round ! time to click =', _this.ttc);
                 }
                 else {
                     timeElapsed = 0;
@@ -226,7 +227,7 @@ module.exports = module.exports.toString();
 /***/ 159:
 /***/ (function(module, exports) {
 
-module.exports = "<br><br><br>\r\n<app-game-hud [score]=\"score\" [lives]=\"lives\" [randomChoice]=\"randomChoice\" [userClicked]=\"userClicked\" (startEmitter)=\"gameStart($event)\" (newRound)=\"refreshBoard($event) \">\r\n</app-game-hud>\r\n<app-game-board [columns]=\"columns\" [gridArray]=\"gridArray\" [endMessage]=\"endMessage\" (answer)=\"onClick($event)\">\r\n</app-game-board>"
+module.exports = "<br><br>\r\n<p>\r\n    How to play : <br>After clicking Start, the game will select a random Letter or a Color <br>Clicking the correct choice will increase your score<br>The time will go 10% faster if you click the indicated box<br>Good Luck!\r\n</p>\r\n<br>\r\n<app-game-hud [score]=\"score\" [lives]=\"lives\" [randomChoice]=\"randomChoice\" [userClicked]=\"userClicked\" (startEmitter)=\"gameStart($event)\" (newRound)=\"refreshBoard($event) \">\r\n</app-game-hud>\r\n<app-game-board [columns]=\"columns\" [gridArray]=\"gridArray\" [endMessage]=\"endMessage\" (answer)=\"onClick($event)\">\r\n</app-game-board>"
 
 /***/ }),
 
@@ -322,7 +323,7 @@ var AppComponent = (function () {
             this.refreshBoard();
         }
         else {
-            console.log('end pressed!');
+            // console.log('end pressed!');
             this.endGame();
         }
     };
@@ -465,7 +466,7 @@ var GameBoardComponent = (function () {
     }
     GameBoardComponent.prototype.ngOnInit = function () {
         this.rows = Array.from(Array(Math.ceil(this.gridArray.length / this.columns)).keys());
-        console.log('keys = ', this.rows.keys());
+        // console.log('keys = ', this.rows.keys());
     };
     GameBoardComponent.prototype.emitAnswer = function (theBox) {
         this.answer.emit(theBox);
