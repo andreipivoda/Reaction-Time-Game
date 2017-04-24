@@ -12,15 +12,16 @@ export class GameBoardComponent implements OnInit {
     @Input() gridArray;
     @Input() endMessage;
     @Output() answer = new EventEmitter();
-    private rows;
+    public rows;
 
     constructor() { }
 
     ngOnInit() {
         this.rows = Array.from(Array(Math.ceil(this.gridArray.length / this.columns)).keys());
+        console.log('keys = ', this.rows.keys());
     }
 
-    emitAnswer(theBox) {
+    public emitAnswer(theBox) {
         this.answer.emit(theBox);
     }
 }

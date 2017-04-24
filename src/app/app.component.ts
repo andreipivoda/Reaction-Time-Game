@@ -8,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
   providers: [GameDataService]
 })
 export class AppComponent implements OnInit {
-  private columns = 6;
-  private score = 0;
-  private lives = 5;
-  private randomChoice;
-  private gridArray;
-  private endMessage;
+  public columns = 6;
+  public score = 0;
+  public lives = 5;
+  public randomChoice;
+  public gridArray;
+  public endMessage;
   public seconds;
   public miliseconds;
   public userClicked = { title: '', color: '' };
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     this.gridArray = this.gameService.getGameOverGrid();
     // this.gridArray = []; this.endMessage = 'Game Over !';
   }
-  private gameStart(status: boolean) {
+  public gameStart(status: boolean) {
     if (status) {
 
       this.refreshBoard();
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
 
   }
 
-  private onClick(answer) {
+  public onClick(answer) {
     this.userClicked = answer;
   }
   public refreshBoard() {

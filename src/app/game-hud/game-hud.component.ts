@@ -14,8 +14,8 @@ export class GameHudComponent implements OnInit {
   private ttc;
   private idle;
   private timer;
-  private miliseconds;
-  private seconds;
+  public miliseconds;
+  public seconds;
   @Input() randomChoice;
   @Input() lives;
   @Input() score;
