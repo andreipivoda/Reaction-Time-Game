@@ -37,6 +37,7 @@ export class GameHudComponent implements OnInit {
     if (this.idle) {
       this.lives = 5;
       this.score = 0;
+      this.ttc = 3;
       this.idle = false;
       this.startTheObs();
       console.log('emitting start');
