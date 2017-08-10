@@ -1,0 +1,5 @@
+<br><br><br>
+<app-game-hud [score]="score" [lives]="lives" [randomChoice]="randomChoice" [userClicked]="userClicked" (startEmitter)="gameStart($event)" (newRound)="refreshBoard($event) ">
+</app-game-hud>
+<app-game-board [columns]="columns" [gridArray]="gridArray" [endMessage]="endMessage" (answer)="onClick($event)">
+</app-game-board>
